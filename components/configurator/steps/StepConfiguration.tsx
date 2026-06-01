@@ -100,7 +100,8 @@ export function StepConfiguration({ state, dispatch, pricing, onConfirm }: Props
             step={1}
             value={state.quantity}
             onChange={(e) => {
-              const v = Math.max(1, Math.floor(Number(e.target.value)));
+              const parsed = Number(e.target.value);
+              const v = Number.isNaN(parsed) ? 1 : Math.max(1, Math.floor(parsed));
               dispatch({ type: 'SET_QUANTITY', payload: v });
             }}
             className="rounded-lg border border-zinc-300 px-4 py-3 text-zinc-900

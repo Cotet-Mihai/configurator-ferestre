@@ -132,12 +132,24 @@ export function ConfiguratorShell({ product }: Props) {
 
   const pricing = useMemo<PricingResult | null>(() => {
     if (!state.dimensions.width || !state.dimensions.height) return null;
+
+    const glassModifier =
+      state.product.glassOptions.find((o) => o.id === state.selectedGlass)
+        ?.priceModifier ?? 0;
+    const colorModifier =
+      state.product.colorOptions.find((o) => o.id === state.selectedColor)
+        ?.priceModifier ?? 0;
+    const hardwareModifier =
+      state.product.hardwareOptions.find((o) => o.id === state.selectedHardware)
+        ?.priceModifier ?? 0;
+
     return calculatePrice({
       pricePerSquareMeter: state.product.pricePerSquareMeter,
       dimensions: state.dimensions as { width: number; height: number },
       opens: state.opens ?? false,
       isOscilo: state.isOscilo ?? false,
       quantity: state.quantity,
+      optionModifiers: glassModifier + colorModifier + hardwareModifier,
     });
   }, [
     state.dimensions,
@@ -145,6 +157,12 @@ export function ConfiguratorShell({ product }: Props) {
     state.isOscilo,
     state.quantity,
     state.product.pricePerSquareMeter,
+    state.selectedGlass,
+    state.selectedColor,
+    state.selectedHardware,
+    state.product.glassOptions,
+    state.product.colorOptions,
+    state.product.hardwareOptions,
   ]);
 
   function handleSubmit(output: ConfiguratorOutput) {

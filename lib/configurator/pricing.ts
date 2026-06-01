@@ -4,7 +4,9 @@ import type { PricingInput, PricingResult } from './types';
 export function calculatePrice(input: PricingInput): PricingResult {
   const area =
     (input.dimensions.width / 100) * (input.dimensions.height / 100);
-  const basePrice = area * input.pricePerSquareMeter;
+  const effectivePricePerSqm =
+    input.pricePerSquareMeter + (input.optionModifiers ?? 0);
+  const basePrice = area * effectivePricePerSqm;
 
   const multiplier = input.isOscilo ? 1.6 : input.opens ? 1.5 : 1.0;
 

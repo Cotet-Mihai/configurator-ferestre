@@ -82,6 +82,7 @@ export interface PricingInput {
   opens: boolean;
   isOscilo: boolean;
   quantity: number;
+  optionModifiers?: number; // sum of selected option priceModifiers (per m²)
 }
 
 export interface PricingResult {

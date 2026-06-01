@@ -261,13 +261,13 @@ export function WindowPreview({
                     renderHandle(
                       frameX + glassInset,
                       Math.max(0, svgW / 2 - glassInset * 1.5),
-                      'left',
+                      'right',
                     )}
                   {handleSide === 'right' &&
                     renderHandle(
                       dividerX + glassInset / 2,
                       Math.max(0, svgW / 2 - glassInset * 1.5),
-                      'right',
+                      'left',
                     )}
                 </>
               )}
