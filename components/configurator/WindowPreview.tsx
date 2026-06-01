@@ -210,7 +210,7 @@ export function WindowPreview({
                       renderHandle(
                         frameX + glassInset,
                         Math.max(0, svgW - glassInset * 2),
-                        handleSide,
+                        handleSide === 'left' ? 'right' : 'left',
                       )}
                   </>
                 )}
@@ -247,13 +247,13 @@ export function WindowPreview({
                       renderOpeningIndicator(
                         frameX + glassInset,
                         Math.max(0, svgW / 2 - glassInset * 1.5),
-                        'left',
+                        activePane === 'both' ? 'right' : 'left',
                       )}
                     {(activePane === 'right' || activePane === 'both') &&
                       renderOpeningIndicator(
                         dividerX + glassInset / 2,
                         Math.max(0, svgW / 2 - glassInset * 1.5),
-                        'right',
+                        activePane === 'both' ? 'left' : 'right',
                       )}
                     {handleSide && opens && (
                       <>
@@ -261,13 +261,13 @@ export function WindowPreview({
                           renderHandle(
                             frameX + glassInset,
                             Math.max(0, svgW / 2 - glassInset * 1.5),
-                            'right',
+                            'left',
                           )}
                         {handleSide === 'right' &&
                           renderHandle(
                             dividerX + glassInset / 2,
                             Math.max(0, svgW / 2 - glassInset * 1.5),
-                            'left',
+                            'right',
                           )}
                       </>
                     )}
