@@ -157,7 +157,7 @@ export function WindowPreview({
             transition={{ duration: 0.35, ease: 'easeOut' }}
             style={{ transformOrigin: `${SVG_SIZE / 2}px ${SVG_SIZE / 2}px` }}
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
             {/* Only width — horizontal line */}
             {!hasHeight && (
               <motion.line
