@@ -182,29 +182,25 @@ export function WindowPreview({
                 exit={{ opacity: 1 }}
               >
                 <motion.rect
-                  x={frameX}
-                  width={svgW}
                   fill="none"
                   stroke={frameColor}
                   strokeWidth={FRAME_SW}
                   rx={2}
-                  initial={{ height: 0, y: lastValid.current.frameY + lastValid.current.svgH / 2 }}
-                  animate={{ height: svgH, y: frameY }}
-                  exit={{ height: 0, y: lastValid.current.frameY + lastValid.current.svgH / 2 }}
+                  initial={{ height: 0, y: lastValid.current.frameY + lastValid.current.svgH / 2, x: frameX, width: svgW }}
+                  animate={{ height: svgH, y: frameY, x: frameX, width: svgW }}
+                  exit={{ height: 0, y: lastValid.current.frameY + lastValid.current.svgH / 2, x: frameX, width: svgW }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 />
 
                 {paneCount === 1 && (
                   <>
                     <motion.rect
-                      x={frameX + glassInset}
-                      width={Math.max(0, svgW - glassInset * 2)}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
-                      animate={{ height: paneH, y: paneY }}
-                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
+                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2, x: frameX + glassInset, width: Math.max(0, svgW - glassInset * 2) }}
+                      animate={{ height: paneH, y: paneY, x: frameX + glassInset, width: Math.max(0, svgW - glassInset * 2) }}
+                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2, x: frameX + glassInset, width: Math.max(0, svgW - glassInset * 2) }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {openDirection &&
@@ -226,35 +222,29 @@ export function WindowPreview({
                 {paneCount === 2 && (
                   <>
                     <motion.line
-                      x1={dividerX}
-                      x2={dividerX}
                       stroke={frameColor}
                       strokeWidth={FRAME_SW / 2}
-                      initial={{ y1: lastValid.current.frameY + lastValid.current.svgH / 2, y2: lastValid.current.frameY + lastValid.current.svgH / 2 }}
-                      animate={{ y1: frameY, y2: frameY + svgH }}
-                      exit={{ y1: lastValid.current.frameY + lastValid.current.svgH / 2, y2: lastValid.current.frameY + lastValid.current.svgH / 2 }}
+                      initial={{ y1: lastValid.current.frameY + lastValid.current.svgH / 2, y2: lastValid.current.frameY + lastValid.current.svgH / 2, x1: dividerX, x2: dividerX }}
+                      animate={{ y1: frameY, y2: frameY + svgH, x1: dividerX, x2: dividerX }}
+                      exit={{ y1: lastValid.current.frameY + lastValid.current.svgH / 2, y2: lastValid.current.frameY + lastValid.current.svgH / 2, x1: dividerX, x2: dividerX }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     <motion.rect
-                      x={frameX + glassInset}
-                      width={Math.max(0, svgW / 2 - glassInset * 1.5)}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
-                      animate={{ height: paneH, y: paneY }}
-                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
+                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2, x: frameX + glassInset, width: Math.max(0, svgW / 2 - glassInset * 1.5) }}
+                      animate={{ height: paneH, y: paneY, x: frameX + glassInset, width: Math.max(0, svgW / 2 - glassInset * 1.5) }}
+                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2, x: frameX + glassInset, width: Math.max(0, svgW / 2 - glassInset * 1.5) }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     <motion.rect
-                      x={dividerX + glassInset / 2}
-                      width={Math.max(0, svgW / 2 - glassInset * 1.5)}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
-                      animate={{ height: paneH, y: paneY }}
-                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
+                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2, x: dividerX + glassInset / 2, width: Math.max(0, svgW / 2 - glassInset * 1.5) }}
+                      animate={{ height: paneH, y: paneY, x: dividerX + glassInset / 2, width: Math.max(0, svgW / 2 - glassInset * 1.5) }}
+                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2, x: dividerX + glassInset / 2, width: Math.max(0, svgW / 2 - glassInset * 1.5) }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {(activePane === 'left' || activePane === 'both') &&
