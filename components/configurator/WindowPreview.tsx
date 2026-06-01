@@ -81,24 +81,24 @@ export function WindowPreview({
 
     const dash = { strokeDasharray: '5 4' as const };
 
+    // Triunghi deschidere — vârful la clantă
+    const handleX = direction === 'left' ? paneX : paneX + pw;
+    const handleY = py + ph / 2;
+    const hingeX = direction === 'left' ? paneX + pw : paneX;
+
     if (isOscilo) {
-      // Triunghi punctat cu vârful sus-centru
+      // Triunghi deschidere (clantă) + triunghi oscilobatant (sus-centru)
       const apexX = paneX + pw / 2;
       const apexY = py;
       return (
         <g stroke={frameColor} strokeWidth={1.5} opacity={0.85} fill="none">
+          <line x1={handleX} y1={handleY} x2={hingeX} y2={py} {...dash} />
+          <line x1={handleX} y1={handleY} x2={hingeX} y2={py + ph} {...dash} />
           <line x1={apexX} y1={apexY} x2={paneX} y2={py + ph} {...dash} />
           <line x1={apexX} y1={apexY} x2={paneX + pw} y2={py + ph} {...dash} />
         </g>
       );
     }
-
-    // Triunghi punctat cu vârful la clantă (centrul laturii cu mânerul)
-    // direction='left' → mâner stânga, balama dreapta
-    // direction='right' → mâner dreapta, balama stânga
-    const handleX = direction === 'left' ? paneX : paneX + pw;
-    const handleY = py + ph / 2;
-    const hingeX = direction === 'left' ? paneX + pw : paneX;
 
     return (
       <g stroke={frameColor} strokeWidth={1.5} opacity={0.85} fill="none">
