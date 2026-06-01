@@ -14,6 +14,14 @@ const PADDING = 32;
 const INNER_MAX = SVG_SIZE - PADDING * 2;
 const FRAME_SW = 12;
 
+function scaleToFit(w: number, h: number): { svgW: number; svgH: number } {
+  const pxPerCm = Math.min(INNER_MAX / w, INNER_MAX / h);
+  return {
+    svgW: Math.round(w * pxPerCm),
+    svgH: Math.round(h * pxPerCm),
+  };
+}
+
 interface Props {
   dimensions: Dimensions;
   glassCount: GlassCount | null;
@@ -24,10 +32,6 @@ interface Props {
   handleSide: HandleSide | null;
   selectedColor: string | null;
   colorOptions: OptionItem[];
-}
-
-function scale(value: number, max: number): number {
-  return Math.round((value / max) * INNER_MAX);
 }
 
 export function WindowPreview({
@@ -41,9 +45,6 @@ export function WindowPreview({
   selectedColor,
   colorOptions,
 }: Props) {
-  const maxW = glassCount === 2 ? 300 : 150;
-  const maxH = glassCount === 2 ? 420 : 210;
-
   const { width, height } = dimensions;
   const hasWidth = width !== null && width > 0;
   const hasHeight = height !== null && height > 0;
@@ -51,8 +52,10 @@ export function WindowPreview({
   const frameColor =
     colorOptions.find((o) => o.id === selectedColor)?.colorValue ?? '#8B6914';
 
-  const svgW = hasWidth ? scale(width!, maxW) : 0;
-  const svgH = hasHeight ? scale(height!, maxH) : 0;
+  const { svgW, svgH } =
+    hasWidth && hasHeight
+      ? scaleToFit(width!, height!)
+      : { svgW: hasWidth ? INNER_MAX : 0, svgH: 0 };
 
   const frameX = PADDING + (INNER_MAX - svgW) / 2;
   const frameY = PADDING + (INNER_MAX - svgH) / 2;
