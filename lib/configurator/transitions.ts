@@ -18,8 +18,7 @@ const STEP_FIELDS: Partial<Record<StepId, (keyof ConfiguratorState)[]>> = {
   'direction': ['openDirection', 'handleSide'],
   'active-pane': ['activePane', 'handleSide'],
   'handle-side': ['handleSide'],
-  'dimensions': ['dimensions'],
-  'configuration': ['selectedGlass', 'selectedColor', 'selectedHardware', 'quantity'],
+  'dimensions': ['dimensions', 'selectedColor', 'quantity'],
 };
 
 export function getResetStateForJump(

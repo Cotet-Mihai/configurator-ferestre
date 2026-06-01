@@ -34,7 +34,6 @@ export type StepId =
   | 'active-pane'
   | 'handle-side'
   | 'dimensions'
-  | 'configuration'
   | 'summary';
 
 export interface StepNode {

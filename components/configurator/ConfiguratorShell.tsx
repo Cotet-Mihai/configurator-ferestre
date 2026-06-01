@@ -24,7 +24,6 @@ import { StepDirection } from './steps/StepDirection';
 import { StepActivePane } from './steps/StepActivePane';
 import { StepHandleSide } from './steps/StepHandleSide';
 import { StepDimensions } from './steps/StepDimensions';
-import { StepConfiguration } from './steps/StepConfiguration';
 import { StepSummary } from './steps/StepSummary';
 
 function buildInitialState(product: ProductConfig): ConfiguratorState {
@@ -187,14 +186,6 @@ export function ConfiguratorShell({ product }: Props) {
       case 'dimensions':
         return (
           <StepDimensions
-            state={state}
-            dispatch={dispatch}
-            onConfirm={() => dispatch({ type: 'ADVANCE' })}
-          />
-        );
-      case 'configuration':
-        return (
-          <StepConfiguration
             state={state}
             dispatch={dispatch}
             pricing={pricing}

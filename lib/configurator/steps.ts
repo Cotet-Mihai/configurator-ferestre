@@ -35,11 +35,6 @@ export const STEPS: Record<StepId, StepNode> = {
   'dimensions': {
     id: 'dimensions',
     label: 'Dimensiuni',
-    getNext: () => 'configuration',
-  },
-  'configuration': {
-    id: 'configuration',
-    label: 'Configurație',
     getNext: () => 'summary',
   },
   'summary': {

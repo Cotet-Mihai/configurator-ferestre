@@ -4,8 +4,10 @@ import type {
   ConfiguratorState,
   ConfiguratorAction,
   GlassCount,
+  PricingResult,
 } from '@/lib/configurator/types';
 import { WindowPreview } from '../WindowPreview';
+import { PriceSummary } from '../PriceSummary';
 
 const LIMITS = {
   1: { minW: 50, maxW: 150, minH: 40, maxH: 210 },
@@ -15,10 +17,11 @@ const LIMITS = {
 interface Props {
   state: ConfiguratorState;
   dispatch: React.Dispatch<ConfiguratorAction>;
+  pricing: PricingResult | null;
   onConfirm: () => void;
 }
 
-export function StepDimensions({ state, dispatch, onConfirm }: Props) {
+export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
   const glassCount = (state.glassCount ?? 1) as GlassCount;
   const limits = LIMITS[glassCount];
   const { width, height } = state.dimensions;
@@ -93,6 +96,60 @@ export function StepDimensions({ state, dispatch, onConfirm }: Props) {
           </label>
         </div>
 
+        {/* Culoare */}
+        {state.product.colorOptions.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <span className="text-sm font-medium text-zinc-700">Culoare</span>
+            <div className="flex flex-wrap gap-3">
+              {state.product.colorOptions.map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  title={opt.label}
+                  onClick={() => dispatch({ type: 'SET_COLOR', payload: opt.id })}
+                  className={`
+                    flex flex-col items-center gap-1.5 group
+                    focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-xl
+                  `}
+                >
+                  <span
+                    className={`
+                      w-10 h-10 rounded-full border-2 transition-all duration-150
+                      ${state.selectedColor === opt.id
+                        ? 'border-amber-500 scale-110 shadow-md'
+                        : 'border-zinc-300 group-hover:border-zinc-400'}
+                    `}
+                    style={{ backgroundColor: opt.colorValue ?? '#8B6914' }}
+                  />
+                  <span className="text-xs text-zinc-500 max-w-[56px] text-center leading-tight">
+                    {opt.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Cantitate */}
+        <label className="flex flex-col gap-1">
+          <span className="text-sm font-medium text-zinc-700">Cantitate</span>
+          <input
+            type="number"
+            min={1}
+            step={1}
+            value={state.quantity}
+            onChange={(e) => {
+              const parsed = Number(e.target.value);
+              const v = Number.isNaN(parsed) ? 1 : Math.max(1, Math.floor(parsed));
+              dispatch({ type: 'SET_QUANTITY', payload: v });
+            }}
+            className="rounded-lg border border-zinc-300 px-4 py-3 text-zinc-900
+              focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent w-32"
+          />
+        </label>
+
+        <PriceSummary pricing={pricing} quantity={state.quantity} />
+
         <button
           onClick={onConfirm}
           disabled={!canConfirm}
@@ -100,7 +157,7 @@ export function StepDimensions({ state, dispatch, onConfirm }: Props) {
             hover:bg-stone-700 disabled:opacity-40 disabled:cursor-not-allowed
             transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
         >
-          Continuă
+          Vezi sumar
         </button>
       </div>
 
