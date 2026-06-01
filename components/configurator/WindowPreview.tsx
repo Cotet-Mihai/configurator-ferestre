@@ -10,6 +10,7 @@ import type {
   HandleSide,
   OptionItem,
 } from '@/lib/configurator/types';
+import { getDimensionLimits } from '@/lib/configurator/limits';
 
 const SVG_SIZE = 400;
 const PADDING = 32;
@@ -47,8 +48,7 @@ export function WindowPreview({
   const frameColor =
     colorOptions.find((o) => o.id === selectedColor)?.colorValue ?? '#8B6914';
 
-  const maxW = glassCount === 2 ? 300 : 150;
-  const maxH = glassCount === 2 ? 420 : 210;
+  const { maxW, maxH } = getDimensionLimits(glassCount, opens, activePane);
   const pxPerCm = Math.min(INNER_MAX / maxW, INNER_MAX / maxH);
 
   const svgW = hasWidth ? Math.round(width! * pxPerCm) : 0;

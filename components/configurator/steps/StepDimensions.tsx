@@ -4,16 +4,11 @@ import { useState, useEffect } from 'react';
 import type {
   ConfiguratorState,
   ConfiguratorAction,
-  GlassCount,
   PricingResult,
   Dimensions,
 } from '@/lib/configurator/types';
+import { getDimensionLimits } from '@/lib/configurator/limits';
 import { WindowPreview } from '../WindowPreview';
-
-const LIMITS = {
-  1: { minW: 50, maxW: 150, minH: 40, maxH: 210 },
-  2: { minW: 100, maxW: 300, minH: 80, maxH: 420 },
-} as const;
 
 interface Props {
   state: ConfiguratorState;
@@ -23,8 +18,7 @@ interface Props {
 }
 
 export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
-  const glassCount = (state.glassCount ?? 1) as GlassCount;
-  const limits = LIMITS[glassCount];
+  const limits = getDimensionLimits(state.glassCount, state.opens, state.activePane);
   const { width, height } = state.dimensions;
 
   const widthValid =
