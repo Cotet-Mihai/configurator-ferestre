@@ -57,7 +57,7 @@ export function WindowPreview({
   const frameX = PADDING + (INNER_MAX - svgW) / 2;
   const frameY = PADDING + (INNER_MAX - svgH) / 2;
 
-  const glassInset = FRAME_SW;
+  const glassInset = FRAME_SW / 2;
   const paneY = frameY + glassInset;
   const paneH = Math.max(0, svgH - glassInset * 2);
 
