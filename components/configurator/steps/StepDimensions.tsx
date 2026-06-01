@@ -40,7 +40,7 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
 
   const [debouncedPreview, setDebouncedPreview] = useState<Dimensions>(previewDimensions);
   useEffect(() => {
-    const t = setTimeout(() => setDebouncedPreview(previewDimensions), 500);
+    const t = setTimeout(() => setDebouncedPreview(previewDimensions), 1000);
     return () => clearTimeout(t);
   }, [previewDimensions.width, previewDimensions.height]);
 
