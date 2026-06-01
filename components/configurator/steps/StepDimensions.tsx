@@ -1,10 +1,12 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import type {
   ConfiguratorState,
   ConfiguratorAction,
   GlassCount,
   PricingResult,
+  Dimensions,
 } from '@/lib/configurator/types';
 import { WindowPreview } from '../WindowPreview';
 
@@ -31,10 +33,16 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
     height !== null && height >= limits.minH && height <= limits.maxH;
   const canConfirm = widthValid && heightValid;
 
-  const previewDimensions = {
+  const previewDimensions: Dimensions = {
     width: widthValid ? width : null,
     height: heightValid ? height : null,
   };
+
+  const [debouncedPreview, setDebouncedPreview] = useState<Dimensions>(previewDimensions);
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedPreview(previewDimensions), 500);
+    return () => clearTimeout(t);
+  }, [previewDimensions.width, previewDimensions.height]);
 
   return (
     <div className="flex flex-col lg:flex-row w-full max-w-5xl mx-auto gap-8 px-4">
@@ -182,7 +190,7 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
       <div className="flex-1 flex items-center justify-center min-h-[300px] lg:min-h-0">
         <div className="w-full max-w-sm aspect-square">
           <WindowPreview
-            dimensions={previewDimensions}
+            dimensions={debouncedPreview}
             glassCount={state.glassCount}
             opens={state.opens}
             isOscilo={state.isOscilo}
