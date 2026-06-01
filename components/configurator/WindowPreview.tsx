@@ -151,32 +151,40 @@ export function WindowPreview({
             transition={{ duration: 0.35, ease: 'easeOut' }}
             style={{ transformOrigin: `${SVG_SIZE / 2}px ${SVG_SIZE / 2}px` }}
           >
+            <AnimatePresence mode="wait">
             {/* Only width — horizontal line */}
             {!hasHeight && (
               <motion.line
+                key="line"
                 y1={SVG_SIZE / 2}
                 y2={SVG_SIZE / 2}
                 stroke={frameColor}
                 strokeWidth={FRAME_SW}
                 strokeLinecap="round"
                 animate={{ x1: frameX, x2: frameX + svgW }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
               />
             )}
 
             {/* Full rectangle */}
             {hasHeight && (
-              <>
-                <rect
+              <motion.g
+                key="rect"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+              >
+                <motion.rect
                   x={frameX}
-                  y={frameY}
                   width={svgW}
-                  height={svgH}
                   fill="none"
                   stroke={frameColor}
                   strokeWidth={FRAME_SW}
                   rx={2}
-                  style={{ transition: 'all 0.2s ease-out' }}
+                  initial={{ height: 0, y: frameY + svgH / 2 }}
+                  animate={{ height: svgH, y: frameY }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
                 />
 
                 {paneCount === 1 && (
@@ -268,8 +276,9 @@ export function WindowPreview({
                     )}
                   </>
                 )}
-              </>
+              </motion.g>
             )}
+            </AnimatePresence>
           </motion.g>
         )}
       </AnimatePresence>
