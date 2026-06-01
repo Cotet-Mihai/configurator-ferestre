@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import type {
   Dimensions,
   GlassCount,
@@ -120,13 +121,14 @@ export function WindowPreview({
     );
   }
 
-  if (!hasWidth) {
-    return (
-      <svg
-        viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
-        className="w-full h-full"
-        aria-label="Previzualizare fereastră"
-      >
+  return (
+    <svg
+      viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
+      className="w-full h-full"
+      aria-label="Previzualizare fereastră"
+    >
+      {/* Placeholder */}
+      {!hasWidth && (
         <text
           x={SVG_SIZE / 2}
           y={SVG_SIZE / 2}
@@ -137,142 +139,141 @@ export function WindowPreview({
         >
           Introduceți dimensiunile
         </text>
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
-      className="w-full h-full"
-      aria-label="Previzualizare fereastră"
-    >
-      {/* Only width — horizontal line */}
-      {hasWidth && !hasHeight && (
-        <line
-          x1={frameX}
-          y1={SVG_SIZE / 2}
-          x2={frameX + svgW}
-          y2={SVG_SIZE / 2}
-          stroke={frameColor}
-          strokeWidth={FRAME_SW}
-          strokeLinecap="round"
-          style={{ transition: 'all 0.2s ease-out' }}
-        />
       )}
 
-      {/* Full rectangle */}
-      {hasWidth && hasHeight && (
-        <>
-          {/* Outer frame */}
-          <rect
-            x={frameX}
-            y={frameY}
-            width={svgW}
-            height={svgH}
-            fill="none"
-            stroke={frameColor}
-            strokeWidth={FRAME_SW}
-            rx={2}
-            style={{ transition: 'all 0.2s ease-out' }}
-          />
-
-          {paneCount === 1 && (
-            <>
-              <rect
-                x={frameX + glassInset}
-                y={paneY}
-                width={Math.max(0, svgW - glassInset * 2)}
-                height={paneH}
-                fill="rgba(186,230,253,0.25)"
-                stroke="#cbd5e1"
-                strokeWidth={1}
-                style={{ transition: 'all 0.2s ease-out' }}
-              />
-              {openDirection &&
-                renderOpeningIndicator(
-                  frameX + glassInset,
-                  Math.max(0, svgW - glassInset * 2),
-                  openDirection,
-                )}
-              {handleSide &&
-                opens &&
-                renderHandle(
-                  frameX + glassInset,
-                  Math.max(0, svgW - glassInset * 2),
-                  handleSide,
-                )}
-            </>
-          )}
-
-          {paneCount === 2 && (
-            <>
-              {/* Divider */}
+      <AnimatePresence>
+        {hasWidth && (
+          <motion.g
+            key="window"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.92 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            style={{ transformOrigin: `${SVG_SIZE / 2}px ${SVG_SIZE / 2}px` }}
+          >
+            {/* Only width — horizontal line */}
+            {!hasHeight && (
               <line
-                x1={dividerX}
-                y1={frameY}
-                x2={dividerX}
-                y2={frameY + svgH}
+                x1={frameX}
+                y1={SVG_SIZE / 2}
+                x2={frameX + svgW}
+                y2={SVG_SIZE / 2}
                 stroke={frameColor}
-                strokeWidth={FRAME_SW / 2}
+                strokeWidth={FRAME_SW}
+                strokeLinecap="round"
                 style={{ transition: 'all 0.2s ease-out' }}
               />
-              {/* Left pane glass */}
-              <rect
-                x={frameX + glassInset}
-                y={paneY}
-                width={Math.max(0, svgW / 2 - glassInset * 1.5)}
-                height={paneH}
-                fill="rgba(186,230,253,0.25)"
-                stroke="#cbd5e1"
-                strokeWidth={1}
-                style={{ transition: 'all 0.2s ease-out' }}
-              />
-              {/* Right pane glass */}
-              <rect
-                x={dividerX + glassInset / 2}
-                y={paneY}
-                width={Math.max(0, svgW / 2 - glassInset * 1.5)}
-                height={paneH}
-                fill="rgba(186,230,253,0.25)"
-                stroke="#cbd5e1"
-                strokeWidth={1}
-                style={{ transition: 'all 0.2s ease-out' }}
-              />
-              {/* Opening indicators */}
-              {(activePane === 'left' || activePane === 'both') &&
-                renderOpeningIndicator(
-                  frameX + glassInset,
-                  Math.max(0, svgW / 2 - glassInset * 1.5),
-                  'left',
+            )}
+
+            {/* Full rectangle */}
+            {hasHeight && (
+              <>
+                <rect
+                  x={frameX}
+                  y={frameY}
+                  width={svgW}
+                  height={svgH}
+                  fill="none"
+                  stroke={frameColor}
+                  strokeWidth={FRAME_SW}
+                  rx={2}
+                  style={{ transition: 'all 0.2s ease-out' }}
+                />
+
+                {paneCount === 1 && (
+                  <>
+                    <rect
+                      x={frameX + glassInset}
+                      y={paneY}
+                      width={Math.max(0, svgW - glassInset * 2)}
+                      height={paneH}
+                      fill="rgba(186,230,253,0.25)"
+                      stroke="#cbd5e1"
+                      strokeWidth={1}
+                      style={{ transition: 'all 0.2s ease-out' }}
+                    />
+                    {openDirection &&
+                      renderOpeningIndicator(
+                        frameX + glassInset,
+                        Math.max(0, svgW - glassInset * 2),
+                        openDirection,
+                      )}
+                    {handleSide &&
+                      opens &&
+                      renderHandle(
+                        frameX + glassInset,
+                        Math.max(0, svgW - glassInset * 2),
+                        handleSide,
+                      )}
+                  </>
                 )}
-              {(activePane === 'right' || activePane === 'both') &&
-                renderOpeningIndicator(
-                  dividerX + glassInset / 2,
-                  Math.max(0, svgW / 2 - glassInset * 1.5),
-                  'right',
+
+                {paneCount === 2 && (
+                  <>
+                    <line
+                      x1={dividerX}
+                      y1={frameY}
+                      x2={dividerX}
+                      y2={frameY + svgH}
+                      stroke={frameColor}
+                      strokeWidth={FRAME_SW / 2}
+                      style={{ transition: 'all 0.2s ease-out' }}
+                    />
+                    <rect
+                      x={frameX + glassInset}
+                      y={paneY}
+                      width={Math.max(0, svgW / 2 - glassInset * 1.5)}
+                      height={paneH}
+                      fill="rgba(186,230,253,0.25)"
+                      stroke="#cbd5e1"
+                      strokeWidth={1}
+                      style={{ transition: 'all 0.2s ease-out' }}
+                    />
+                    <rect
+                      x={dividerX + glassInset / 2}
+                      y={paneY}
+                      width={Math.max(0, svgW / 2 - glassInset * 1.5)}
+                      height={paneH}
+                      fill="rgba(186,230,253,0.25)"
+                      stroke="#cbd5e1"
+                      strokeWidth={1}
+                      style={{ transition: 'all 0.2s ease-out' }}
+                    />
+                    {(activePane === 'left' || activePane === 'both') &&
+                      renderOpeningIndicator(
+                        frameX + glassInset,
+                        Math.max(0, svgW / 2 - glassInset * 1.5),
+                        'left',
+                      )}
+                    {(activePane === 'right' || activePane === 'both') &&
+                      renderOpeningIndicator(
+                        dividerX + glassInset / 2,
+                        Math.max(0, svgW / 2 - glassInset * 1.5),
+                        'right',
+                      )}
+                    {handleSide && opens && (
+                      <>
+                        {handleSide === 'left' &&
+                          renderHandle(
+                            frameX + glassInset,
+                            Math.max(0, svgW / 2 - glassInset * 1.5),
+                            'right',
+                          )}
+                        {handleSide === 'right' &&
+                          renderHandle(
+                            dividerX + glassInset / 2,
+                            Math.max(0, svgW / 2 - glassInset * 1.5),
+                            'left',
+                          )}
+                      </>
+                    )}
+                  </>
                 )}
-              {/* Handle */}
-              {handleSide && opens && (
-                <>
-                  {handleSide === 'left' &&
-                    renderHandle(
-                      frameX + glassInset,
-                      Math.max(0, svgW / 2 - glassInset * 1.5),
-                      'right',
-                    )}
-                  {handleSide === 'right' &&
-                    renderHandle(
-                      dividerX + glassInset / 2,
-                      Math.max(0, svgW / 2 - glassInset * 1.5),
-                      'left',
-                    )}
-                </>
-              )}
-            </>
-          )}
-        </>
-      )}
+              </>
+            )}
+          </motion.g>
+        )}
+      </AnimatePresence>
     </svg>
   );
 }
