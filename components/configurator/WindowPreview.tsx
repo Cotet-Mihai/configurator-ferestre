@@ -52,10 +52,12 @@ export function WindowPreview({
   const frameColor =
     colorOptions.find((o) => o.id === selectedColor)?.colorValue ?? '#8B6914';
 
+  const maxW = glassCount === 2 ? 300 : 150;
+
   const { svgW, svgH } =
     hasWidth && hasHeight
       ? scaleToFit(width!, height!)
-      : { svgW: hasWidth ? INNER_MAX : 0, svgH: 0 };
+      : { svgW: hasWidth ? Math.round((width! / maxW) * INNER_MAX) : 0, svgH: 0 };
 
   const frameX = PADDING + (INNER_MAX - svgW) / 2;
   const frameY = PADDING + (INNER_MAX - svgH) / 2;
