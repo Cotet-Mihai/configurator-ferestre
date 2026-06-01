@@ -49,6 +49,10 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
       {/* Form */}
       <div className="flex flex-col gap-0 flex-1">
 
+        <h2 className="text-2xl font-semibold text-zinc-900 mb-6">
+          Configurați fereastra
+        </h2>
+
         {/* Secțiunea 1 — Dimensiuni gol */}
         <div className="flex flex-col gap-4 pb-6">
           <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
