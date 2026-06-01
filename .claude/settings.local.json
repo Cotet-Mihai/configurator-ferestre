@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:claude.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(claude plugin *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git checkout *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm config *)",
+      "Bash(pnpm install *)",
+      "Bash(git commit *)",
+      "Bash(pnpm list *)",
+      "Bash(pnpm verify *)",
+      "Bash(pnpm ls *)",
+      "Bash(pnpm why *)",
+      "Bash(pnpm exec *)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(pnpm approve-builds *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(timeout 30 pnpm dev)",
+      "Bash(pkill -f \"pnpm dev\")",
+      "Bash(node -e \"console.log\\(require\\('next/package.json'\\).version\\)\")",
+      "Bash(timeout 12 node node_modules/next/dist/bin/next dev)",
+      "Bash(node_modules/.bin/tsc *)",
+      "Bash(timeout 15 pnpm dev)",
+      "Bash(timeout 15 node_modules/.bin/next dev)",
+      "Bash(node_modules/.bin/next build *)",
+      "Bash(pnpm tsc *)",
+      "Bash(git revert *)"
+    ]
+  }
+}

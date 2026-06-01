@@ -80,15 +80,8 @@ export function WindowPreview({
     const pw = paneW;
 
     const t = { duration: 0.4, ease: 'easeOut' } as const;
-    const sharedProps = {
-      stroke: frameColor,
-      strokeWidth: 1.5,
-      strokeDasharray: '5 4',
-      fill: 'none',
-      opacity: 0.85,
-    };
+    const staticProps = { strokeWidth: 1.5, strokeDasharray: '5 4', fill: 'none', opacity: 0.85 };
 
-    // Triunghi deschidere — vârful la clantă
     const handleX = direction === 'left' ? paneX : paneX + pw;
     const handleY = py + ph / 2;
     const hingeX = direction === 'left' ? paneX + pw : paneX;
@@ -98,18 +91,18 @@ export function WindowPreview({
       const apexY = py;
       return (
         <g>
-          <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py }} transition={t} />
-          <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph }} transition={t} />
-          <motion.line {...sharedProps} animate={{ x1: apexX, y1: apexY, x2: paneX, y2: py + ph }} transition={t} />
-          <motion.line {...sharedProps} animate={{ x1: apexX, y1: apexY, x2: paneX + pw, y2: py + ph }} transition={t} />
+          <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} transition={t} />
+          <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} transition={t} />
+          <motion.line {...staticProps} animate={{ x1: apexX, y1: apexY, x2: paneX, y2: py + ph, stroke: frameColor }} transition={t} />
+          <motion.line {...staticProps} animate={{ x1: apexX, y1: apexY, x2: paneX + pw, y2: py + ph, stroke: frameColor }} transition={t} />
         </g>
       );
     }
 
     return (
       <g>
-        <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py }} transition={t} />
-        <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph }} transition={t} />
+        <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} transition={t} />
+        <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} transition={t} />
       </g>
     );
   }
@@ -118,11 +111,10 @@ export function WindowPreview({
     const hx = side === 'left' ? paneX + 10 : paneX + paneW - 10;
     const hy = paneY + paneH / 2;
     return (
-      <circle
+      <motion.circle
         cx={hx}
         cy={hy}
         r={6}
-        fill={frameColor}
         stroke="#fff"
         strokeWidth={2}
       />

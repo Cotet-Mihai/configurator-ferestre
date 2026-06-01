@@ -7,7 +7,6 @@ export const MOCK_PRODUCT: ProductConfig = {
   pricePerSquareMeter: 1300,
   glassOptions: [
     { id: 'glass-2', label: 'Geam dublu 4/16/4', priceModifier: 0 },
-    { id: 'glass-3', label: 'Geam triplu 4/16/4/16/4', priceModifier: 150 },
   ],
   colorOptions: [
     { id: 'color-natural', label: 'Stejar natural', priceModifier: 0, colorValue: '#8B6914' },
