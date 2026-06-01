@@ -14,13 +14,6 @@ const PADDING = 32;
 const INNER_MAX = SVG_SIZE - PADDING * 2;
 const FRAME_SW = 12;
 
-function scaleToFit(w: number, h: number): { svgW: number; svgH: number } {
-  const pxPerCm = Math.min(INNER_MAX / w, INNER_MAX / h);
-  return {
-    svgW: Math.round(w * pxPerCm),
-    svgH: Math.round(h * pxPerCm),
-  };
-}
 
 interface Props {
   dimensions: Dimensions;
@@ -53,11 +46,11 @@ export function WindowPreview({
     colorOptions.find((o) => o.id === selectedColor)?.colorValue ?? '#8B6914';
 
   const maxW = glassCount === 2 ? 300 : 150;
+  const maxH = glassCount === 2 ? 420 : 210;
+  const pxPerCm = Math.min(INNER_MAX / maxW, INNER_MAX / maxH);
 
-  const { svgW, svgH } =
-    hasWidth && hasHeight
-      ? scaleToFit(width!, height!)
-      : { svgW: hasWidth ? Math.round((width! / maxW) * INNER_MAX) : 0, svgH: 0 };
+  const svgW = hasWidth ? Math.round(width! * pxPerCm) : 0;
+  const svgH = hasHeight ? Math.round(height! * pxPerCm) : 0;
 
   const frameX = PADDING + (INNER_MAX - svgW) / 2;
   const frameY = PADDING + (INNER_MAX - svgH) / 2;
