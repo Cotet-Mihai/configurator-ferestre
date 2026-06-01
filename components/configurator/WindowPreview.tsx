@@ -225,14 +225,15 @@ export function WindowPreview({
 
                 {paneCount === 2 && (
                   <>
-                    <line
+                    <motion.line
                       x1={dividerX}
-                      y1={frameY}
                       x2={dividerX}
-                      y2={frameY + svgH}
                       stroke={frameColor}
                       strokeWidth={FRAME_SW / 2}
-                      style={{ transition: 'all 0.2s ease-out' }}
+                      initial={{ y1: lastValid.current.frameY + lastValid.current.svgH / 2, y2: lastValid.current.frameY + lastValid.current.svgH / 2 }}
+                      animate={{ y1: frameY, y2: frameY + svgH }}
+                      exit={{ y1: lastValid.current.frameY + lastValid.current.svgH / 2, y2: lastValid.current.frameY + lastValid.current.svgH / 2 }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     <motion.rect
                       x={frameX + glassInset}
