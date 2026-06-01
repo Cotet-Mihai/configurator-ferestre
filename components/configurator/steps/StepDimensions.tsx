@@ -7,7 +7,6 @@ import type {
   PricingResult,
 } from '@/lib/configurator/types';
 import { WindowPreview } from '../WindowPreview';
-import { PriceSummary } from '../PriceSummary';
 
 const LIMITS = {
   1: { minW: 50, maxW: 150, minH: 40, maxH: 210 },
@@ -163,8 +162,6 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
               focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent w-32"
           />
         </label>
-
-        <PriceSummary pricing={pricing} quantity={state.quantity} />
 
         <button
           onClick={onConfirm}
