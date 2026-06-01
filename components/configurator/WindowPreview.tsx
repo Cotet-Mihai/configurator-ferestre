@@ -178,14 +178,17 @@ export function WindowPreview({
               >
                 <motion.rect
                   x={frameX}
+                  y={frameY}
                   width={svgW}
+                  height={svgH}
                   fill="none"
                   stroke={frameColor}
                   strokeWidth={FRAME_SW}
                   rx={2}
-                  initial={{ height: 0, y: frameY + svgH / 2 }}
-                  animate={{ height: svgH, y: frameY }}
-                  exit={{ height: 0, y: frameY + svgH / 2 }}
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: 1 }}
+                  exit={{ scaleY: 0 }}
+                  style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 />
 
@@ -193,13 +196,16 @@ export function WindowPreview({
                   <>
                     <motion.rect
                       x={frameX + glassInset}
+                      y={paneY}
                       width={Math.max(0, svgW - glassInset * 2)}
+                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: paneY + paneH / 2 }}
-                      animate={{ height: paneH, y: paneY }}
-                      exit={{ height: 0, y: paneY + paneH / 2 }}
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      exit={{ scaleY: 0 }}
+                      style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {openDirection &&
@@ -231,24 +237,30 @@ export function WindowPreview({
                     />
                     <motion.rect
                       x={frameX + glassInset}
+                      y={paneY}
                       width={Math.max(0, svgW / 2 - glassInset * 1.5)}
+                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: paneY + paneH / 2 }}
-                      animate={{ height: paneH, y: paneY }}
-                      exit={{ height: 0, y: paneY + paneH / 2 }}
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      exit={{ scaleY: 0 }}
+                      style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     <motion.rect
                       x={dividerX + glassInset / 2}
+                      y={paneY}
                       width={Math.max(0, svgW / 2 - glassInset * 1.5)}
+                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: paneY + paneH / 2 }}
-                      animate={{ height: paneH, y: paneY }}
-                      exit={{ height: 0, y: paneY + paneH / 2 }}
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      exit={{ scaleY: 0 }}
+                      style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {(activePane === 'left' || activePane === 'both') &&
