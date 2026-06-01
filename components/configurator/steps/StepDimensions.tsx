@@ -43,7 +43,7 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1">
             <span className="text-sm font-medium text-zinc-700">
-              Lățime (cm)
+              Lățime gol (cm)
             </span>
             <span className="text-xs text-zinc-400">
               {limits.minW} – {limits.maxW} cm
@@ -70,7 +70,7 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
 
           <label className="flex flex-col gap-1">
             <span className="text-sm font-medium text-zinc-700">
-              Înălțime (cm)
+              Înălțime gol (cm)
             </span>
             <span className="text-xs text-zinc-400">
               {limits.minH} – {limits.maxH} cm
