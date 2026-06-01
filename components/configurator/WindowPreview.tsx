@@ -217,6 +217,7 @@ export function WindowPreview({
                 y2={frameY + svgH}
                 stroke={frameColor}
                 strokeWidth={FRAME_SW / 2}
+                style={{ transition: 'all 0.2s ease-out' }}
               />
               {/* Left pane glass */}
               <rect
@@ -227,6 +228,7 @@ export function WindowPreview({
                 fill="rgba(186,230,253,0.25)"
                 stroke="#cbd5e1"
                 strokeWidth={1}
+                style={{ transition: 'all 0.2s ease-out' }}
               />
               {/* Right pane glass */}
               <rect
@@ -237,6 +239,7 @@ export function WindowPreview({
                 fill="rgba(186,230,253,0.25)"
                 stroke="#cbd5e1"
                 strokeWidth={1}
+                style={{ transition: 'all 0.2s ease-out' }}
               />
               {/* Opening indicators */}
               {(activePane === 'left' || activePane === 'both') &&
