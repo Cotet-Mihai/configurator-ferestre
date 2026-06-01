@@ -40,22 +40,6 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
           Dimensiunile golului din perete
         </h2>
 
-        {/* Informații fixe produs */}
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-zinc-700">Sticlă</span>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-500 cursor-default select-none">
-              Geam tripan
-            </div>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-zinc-700">Feronerie</span>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-500 cursor-default select-none">
-              Feronerie standard (Roto AGB sa G-U)
-            </div>
-          </div>
-        </div>
-
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1">
             <span className="text-sm font-medium text-zinc-700">
@@ -110,6 +94,22 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
               </span>
             )}
           </label>
+        </div>
+
+        {/* Informații fixe produs */}
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
+            <span className="text-sm font-medium text-zinc-700">Sticlă</span>
+            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-500 cursor-default select-none">
+              Geam tripan
+            </div>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-sm font-medium text-zinc-700">Feronerie</span>
+            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-500 cursor-default select-none">
+              Feronerie standard (Roto AGB sa G-U)
+            </div>
+          </div>
         </div>
 
         {/* Culoare */}
