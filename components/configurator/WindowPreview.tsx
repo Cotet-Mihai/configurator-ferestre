@@ -189,15 +189,15 @@ export function WindowPreview({
 
                 {paneCount === 1 && (
                   <>
-                    <rect
+                    <motion.rect
                       x={frameX + glassInset}
-                      y={paneY}
                       width={Math.max(0, svgW - glassInset * 2)}
-                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      style={{ transition: 'all 0.2s ease-out' }}
+                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      animate={{ height: paneH, y: paneY }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {openDirection &&
                       renderOpeningIndicator(
@@ -226,25 +226,25 @@ export function WindowPreview({
                       strokeWidth={FRAME_SW / 2}
                       style={{ transition: 'all 0.2s ease-out' }}
                     />
-                    <rect
+                    <motion.rect
                       x={frameX + glassInset}
-                      y={paneY}
                       width={Math.max(0, svgW / 2 - glassInset * 1.5)}
-                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      style={{ transition: 'all 0.2s ease-out' }}
+                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      animate={{ height: paneH, y: paneY }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
-                    <rect
+                    <motion.rect
                       x={dividerX + glassInset / 2}
-                      y={paneY}
                       width={Math.max(0, svgW / 2 - glassInset * 1.5)}
-                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      style={{ transition: 'all 0.2s ease-out' }}
+                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      animate={{ height: paneH, y: paneY }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {(activePane === 'left' || activePane === 'both') &&
                       renderOpeningIndicator(
