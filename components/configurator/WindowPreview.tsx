@@ -79,35 +79,31 @@ export function WindowPreview({
     const ph = paneH;
     const pw = paneW;
 
-    // direction 'left': hinge on right → line from top-right to bottom-left
-    // direction 'right': hinge on left → line from top-left to bottom-right
-    const [x1, y1, x2, y2] =
-      direction === 'left'
-        ? [paneX + pw, py, paneX, py + ph]
-        : [paneX, py, paneX + pw, py + ph];
+    const dash = { strokeDasharray: '5 4' as const };
 
     if (isOscilo) {
+      // Triunghi punctat cu vârful sus-centru
+      const apexX = paneX + pw / 2;
+      const apexY = py;
       return (
-        <g stroke={frameColor} strokeWidth={1.5} opacity={0.7}>
-          <line x1={x1} y1={y1} x2={x2} y2={y2} />
-          <line
-            x1={paneX + pw / 2}
-            y1={py}
-            x2={paneX + pw / 2}
-            y2={py + ph * 0.6}
-          />
-          <polygon
-            points={`${paneX + pw / 2 - 5},${py + ph * 0.55} ${paneX + pw / 2},${py + ph * 0.65} ${paneX + pw / 2 + 5},${py + ph * 0.55}`}
-            fill={frameColor}
-            stroke="none"
-          />
+        <g stroke={frameColor} strokeWidth={1.5} opacity={0.85} fill="none">
+          <line x1={apexX} y1={apexY} x2={paneX} y2={py + ph} {...dash} />
+          <line x1={apexX} y1={apexY} x2={paneX + pw} y2={py + ph} {...dash} />
         </g>
       );
     }
 
+    // Triunghi punctat cu vârful la clantă (centrul laturii cu mânerul)
+    // direction='left' → mâner stânga, balama dreapta
+    // direction='right' → mâner dreapta, balama stânga
+    const handleX = direction === 'left' ? paneX : paneX + pw;
+    const handleY = py + ph / 2;
+    const hingeX = direction === 'left' ? paneX + pw : paneX;
+
     return (
-      <g stroke={frameColor} strokeWidth={1.5} opacity={0.7}>
-        <line x1={x1} y1={y1} x2={x2} y2={y2} />
+      <g stroke={frameColor} strokeWidth={1.5} opacity={0.85} fill="none">
+        <line x1={handleX} y1={handleY} x2={hingeX} y2={py} {...dash} />
+        <line x1={handleX} y1={handleY} x2={hingeX} y2={py + ph} {...dash} />
       </g>
     );
   }
