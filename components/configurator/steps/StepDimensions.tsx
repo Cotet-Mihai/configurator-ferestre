@@ -5,6 +5,7 @@ import type {
   ConfiguratorAction,
   GlassCount,
 } from '@/lib/configurator/types';
+import { WindowPreview } from '../WindowPreview';
 
 const LIMITS = {
   1: { minW: 50, maxW: 150, minH: 40, maxH: 210 },
@@ -103,10 +104,19 @@ export function StepDimensions({ state, dispatch, onConfirm }: Props) {
         </button>
       </div>
 
-      {/* Preview placeholder — WindowPreview integrated in Task 12 */}
       <div className="flex-1 flex items-center justify-center min-h-[300px] lg:min-h-0">
-        <div className="w-full max-w-sm aspect-square bg-zinc-100 rounded-2xl flex items-center justify-center text-zinc-400 text-sm">
-          Preview fereastră
+        <div className="w-full max-w-sm aspect-square">
+          <WindowPreview
+            dimensions={state.dimensions}
+            glassCount={state.glassCount}
+            opens={state.opens}
+            isOscilo={state.isOscilo}
+            openDirection={state.openDirection}
+            activePane={state.activePane}
+            handleSide={state.handleSide}
+            selectedColor={state.selectedColor}
+            colorOptions={state.product.colorOptions}
+          />
         </div>
       </div>
     </div>
