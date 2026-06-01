@@ -161,8 +161,9 @@ export function WindowPreview({
                 stroke={frameColor}
                 strokeWidth={FRAME_SW}
                 strokeLinecap="round"
+                initial={{ x1: frameX + svgW / 2, x2: frameX + svgW / 2 }}
                 animate={{ x1: frameX, x2: frameX + svgW }}
-                exit={{ opacity: 0 }}
+                exit={{ x1: frameX + svgW / 2, x2: frameX + svgW / 2 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
               />
             )}
@@ -171,9 +172,9 @@ export function WindowPreview({
             {hasHeight && (
               <motion.g
                 key="rect"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+                exit={{ opacity: 1 }}
               >
                 <motion.rect
                   x={frameX}
@@ -184,6 +185,7 @@ export function WindowPreview({
                   rx={2}
                   initial={{ height: 0, y: frameY + svgH / 2 }}
                   animate={{ height: svgH, y: frameY }}
+                  exit={{ height: 0, y: frameY + svgH / 2 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 />
 
@@ -197,6 +199,7 @@ export function WindowPreview({
                       strokeWidth={1}
                       initial={{ height: 0, y: paneY + paneH / 2 }}
                       animate={{ height: paneH, y: paneY }}
+                      exit={{ height: 0, y: paneY + paneH / 2 }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {openDirection &&
@@ -234,6 +237,7 @@ export function WindowPreview({
                       strokeWidth={1}
                       initial={{ height: 0, y: paneY + paneH / 2 }}
                       animate={{ height: paneH, y: paneY }}
+                      exit={{ height: 0, y: paneY + paneH / 2 }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     <motion.rect
@@ -244,6 +248,7 @@ export function WindowPreview({
                       strokeWidth={1}
                       initial={{ height: 0, y: paneY + paneH / 2 }}
                       animate={{ height: paneH, y: paneY }}
+                      exit={{ height: 0, y: paneY + paneH / 2 }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {(activePane === 'left' || activePane === 'both') &&
