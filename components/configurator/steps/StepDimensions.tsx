@@ -47,12 +47,15 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
   return (
     <div className="flex flex-col lg:flex-row w-full max-w-5xl mx-auto gap-8 px-4">
       {/* Form */}
-      <div className="flex flex-col gap-6 flex-1">
-        <h2 className="text-2xl font-semibold text-zinc-900">
-          Dimensiunile golului din perete
-        </h2>
+      <div className="flex flex-col gap-0 flex-1">
 
-        <div className="flex flex-col gap-4">
+        {/* Secțiunea 1 — Dimensiuni gol */}
+        <div className="flex flex-col gap-4 pb-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+            Dimensiuni gol
+          </p>
+
+          <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1">
             <span className="text-sm font-medium text-zinc-700">
               Lățime gol (cm)
@@ -106,7 +109,17 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
               </span>
             )}
           </label>
+          </div>
         </div>
+
+        {/* Separator */}
+        <div className="border-t border-zinc-200 mb-6" />
+
+        {/* Secțiunea 2 — Specificații produs */}
+        <div className="flex flex-col gap-5">
+          <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+            Specificații produs
+          </p>
 
         {/* Informații fixe produs */}
         <div className="flex flex-col gap-3">
@@ -175,6 +188,8 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
               focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent w-32"
           />
         </label>
+
+        </div>
 
         <button
           onClick={onConfirm}

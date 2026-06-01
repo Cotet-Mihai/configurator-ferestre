@@ -34,7 +34,7 @@ export const STEPS: Record<StepId, StepNode> = {
   },
   'dimensions': {
     id: 'dimensions',
-    label: 'Dimensiuni',
+    label: 'Configurare',
     getNext: () => 'summary',
   },
   'summary': {
