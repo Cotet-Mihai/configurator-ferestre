@@ -31,6 +31,11 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
     height !== null && height >= limits.minH && height <= limits.maxH;
   const canConfirm = widthValid && heightValid;
 
+  const previewDimensions = {
+    width: widthValid ? width : null,
+    height: heightValid ? height : null,
+  };
+
   return (
     <div className="flex flex-col lg:flex-row w-full max-w-5xl mx-auto gap-8 px-4">
       {/* Form */}
@@ -177,7 +182,7 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
       <div className="flex-1 flex items-center justify-center min-h-[300px] lg:min-h-0">
         <div className="w-full max-w-sm aspect-square">
           <WindowPreview
-            dimensions={state.dimensions}
+            dimensions={previewDimensions}
             glassCount={state.glassCount}
             opens={state.opens}
             isOscilo={state.isOscilo}
