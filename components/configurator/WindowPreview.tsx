@@ -153,15 +153,14 @@ export function WindowPreview({
           >
             {/* Only width — horizontal line */}
             {!hasHeight && (
-              <line
-                x1={frameX}
+              <motion.line
                 y1={SVG_SIZE / 2}
-                x2={frameX + svgW}
                 y2={SVG_SIZE / 2}
                 stroke={frameColor}
                 strokeWidth={FRAME_SW}
                 strokeLinecap="round"
-                style={{ transition: 'all 0.2s ease-out' }}
+                animate={{ x1: frameX, x2: frameX + svgW }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
               />
             )}
 
