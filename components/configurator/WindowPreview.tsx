@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type {
   Dimensions,
@@ -59,6 +60,11 @@ export function WindowPreview({
   const glassInset = FRAME_SW;
   const paneY = frameY + glassInset;
   const paneH = Math.max(0, svgH - glassInset * 2);
+
+  const lastValid = useRef({ svgH, frameY, paneY, paneH });
+  if (hasHeight && svgH > 0) {
+    lastValid.current = { svgH, frameY, paneY, paneH };
+  }
 
   const paneCount = glassCount === 2 ? 2 : 1;
   const dividerX = frameX + svgW / 2;
@@ -171,9 +177,9 @@ export function WindowPreview({
             {hasHeight && (
               <motion.g
                 key="rect"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
+                exit={{ opacity: 1 }}
               >
                 <motion.rect
                   x={frameX}
@@ -182,8 +188,9 @@ export function WindowPreview({
                   stroke={frameColor}
                   strokeWidth={FRAME_SW}
                   rx={2}
-                  initial={{ height: 0, y: frameY + svgH / 2 }}
+                  initial={{ height: 0, y: lastValid.current.frameY + lastValid.current.svgH / 2 }}
                   animate={{ height: svgH, y: frameY }}
+                  exit={{ height: 0, y: lastValid.current.frameY + lastValid.current.svgH / 2 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 />
 
@@ -195,8 +202,9 @@ export function WindowPreview({
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
                       animate={{ height: paneH, y: paneY }}
+                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {openDirection &&
@@ -232,8 +240,9 @@ export function WindowPreview({
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
                       animate={{ height: paneH, y: paneY }}
+                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     <motion.rect
@@ -242,8 +251,9 @@ export function WindowPreview({
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      initial={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
                       animate={{ height: paneH, y: paneY }}
+                      exit={{ height: 0, y: lastValid.current.paneY + lastValid.current.paneH / 2 }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {(activePane === 'left' || activePane === 'both') &&
