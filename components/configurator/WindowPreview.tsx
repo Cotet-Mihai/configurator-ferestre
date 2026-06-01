@@ -161,9 +161,8 @@ export function WindowPreview({
                 stroke={frameColor}
                 strokeWidth={FRAME_SW}
                 strokeLinecap="round"
-                initial={{ x1: frameX + svgW / 2, x2: frameX + svgW / 2 }}
                 animate={{ x1: frameX, x2: frameX + svgW }}
-                exit={{ x1: frameX + svgW / 2, x2: frameX + svgW / 2 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
               />
             )}
@@ -172,23 +171,19 @@ export function WindowPreview({
             {hasHeight && (
               <motion.g
                 key="rect"
-                initial={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 1 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
               >
                 <motion.rect
                   x={frameX}
-                  y={frameY}
                   width={svgW}
-                  height={svgH}
                   fill="none"
                   stroke={frameColor}
                   strokeWidth={FRAME_SW}
                   rx={2}
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  exit={{ scaleY: 0 }}
-                  style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+                  initial={{ height: 0, y: frameY + svgH / 2 }}
+                  animate={{ height: svgH, y: frameY }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 />
 
@@ -196,16 +191,12 @@ export function WindowPreview({
                   <>
                     <motion.rect
                       x={frameX + glassInset}
-                      y={paneY}
                       width={Math.max(0, svgW - glassInset * 2)}
-                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ scaleY: 0 }}
-                      animate={{ scaleY: 1 }}
-                      exit={{ scaleY: 0 }}
-                      style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      animate={{ height: paneH, y: paneY }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {openDirection &&
@@ -237,30 +228,22 @@ export function WindowPreview({
                     />
                     <motion.rect
                       x={frameX + glassInset}
-                      y={paneY}
                       width={Math.max(0, svgW / 2 - glassInset * 1.5)}
-                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ scaleY: 0 }}
-                      animate={{ scaleY: 1 }}
-                      exit={{ scaleY: 0 }}
-                      style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      animate={{ height: paneH, y: paneY }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     <motion.rect
                       x={dividerX + glassInset / 2}
-                      y={paneY}
                       width={Math.max(0, svgW / 2 - glassInset * 1.5)}
-                      height={paneH}
                       fill="rgba(186,230,253,0.25)"
                       stroke="#cbd5e1"
                       strokeWidth={1}
-                      initial={{ scaleY: 0 }}
-                      animate={{ scaleY: 1 }}
-                      exit={{ scaleY: 0 }}
-                      style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+                      initial={{ height: 0, y: paneY + paneH / 2 }}
+                      animate={{ height: paneH, y: paneY }}
                       transition={{ duration: 0.4, ease: 'easeOut' }}
                     />
                     {(activePane === 'left' || activePane === 'both') &&
