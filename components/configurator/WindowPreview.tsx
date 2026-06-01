@@ -210,7 +210,7 @@ export function WindowPreview({
                       renderHandle(
                         frameX + glassInset,
                         Math.max(0, svgW - glassInset * 2),
-                        handleSide === 'left' ? 'right' : 'left',
+                        handleSide,
                       )}
                   </>
                 )}
