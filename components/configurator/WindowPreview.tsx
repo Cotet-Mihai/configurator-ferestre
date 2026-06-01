@@ -79,7 +79,14 @@ export function WindowPreview({
     const ph = paneH;
     const pw = paneW;
 
-    const dash = { strokeDasharray: '5 4' as const };
+    const t = { duration: 0.4, ease: 'easeOut' } as const;
+    const sharedProps = {
+      stroke: frameColor,
+      strokeWidth: 1.5,
+      strokeDasharray: '5 4',
+      fill: 'none',
+      opacity: 0.85,
+    };
 
     // Triunghi deschidere — vârful la clantă
     const handleX = direction === 'left' ? paneX : paneX + pw;
@@ -87,23 +94,22 @@ export function WindowPreview({
     const hingeX = direction === 'left' ? paneX + pw : paneX;
 
     if (isOscilo) {
-      // Triunghi deschidere (clantă) + triunghi oscilobatant (sus-centru)
       const apexX = paneX + pw / 2;
       const apexY = py;
       return (
-        <g stroke={frameColor} strokeWidth={1.5} opacity={0.85} fill="none">
-          <line x1={handleX} y1={handleY} x2={hingeX} y2={py} {...dash} />
-          <line x1={handleX} y1={handleY} x2={hingeX} y2={py + ph} {...dash} />
-          <line x1={apexX} y1={apexY} x2={paneX} y2={py + ph} {...dash} />
-          <line x1={apexX} y1={apexY} x2={paneX + pw} y2={py + ph} {...dash} />
+        <g>
+          <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py }} transition={t} />
+          <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph }} transition={t} />
+          <motion.line {...sharedProps} animate={{ x1: apexX, y1: apexY, x2: paneX, y2: py + ph }} transition={t} />
+          <motion.line {...sharedProps} animate={{ x1: apexX, y1: apexY, x2: paneX + pw, y2: py + ph }} transition={t} />
         </g>
       );
     }
 
     return (
-      <g stroke={frameColor} strokeWidth={1.5} opacity={0.85} fill="none">
-        <line x1={handleX} y1={handleY} x2={hingeX} y2={py} {...dash} />
-        <line x1={handleX} y1={handleY} x2={hingeX} y2={py + ph} {...dash} />
+      <g>
+        <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py }} transition={t} />
+        <motion.line {...sharedProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph }} transition={t} />
       </g>
     );
   }
