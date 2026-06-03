@@ -1,4 +1,4 @@
-// lib/configurator/transitions.ts
+// lib/configurator-ferestre/transitions.ts
 import { STEPS } from './steps';
 import type { ConfiguratorState, StepId } from './types';
 

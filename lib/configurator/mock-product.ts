@@ -1,4 +1,4 @@
-// lib/configurator/mock-product.ts
+// lib/configurator-ferestre/mock-product.ts
 import type { ProductConfig } from './types';
 
 export const MOCK_PRODUCT: ProductConfig = {

@@ -1,4 +1,4 @@
-// lib/configurator/steps.ts
+// lib/configurator-ferestre/steps.ts
 import type { ConfiguratorState, StepId, StepNode } from './types';
 
 export const STEPS: Record<StepId, StepNode> = {

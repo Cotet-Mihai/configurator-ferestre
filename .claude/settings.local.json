@@ -32,7 +32,12 @@
       "Bash(timeout 15 node_modules/.bin/next dev)",
       "Bash(node_modules/.bin/next build *)",
       "Bash(pnpm tsc *)",
-      "Bash(git revert *)"
+      "Bash(git revert *)",
+      "Bash(pnpm build *)",
+      "Bash(git push *)",
+      "Bash(git filter-branch *)",
+      "Bash(git stash *)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --msg-filter 'sed \"/Co-Authored-By: Claude/d\" | sed \"/^[[:space:]]*$/d\"' -- --all)"
     ]
   }
 }

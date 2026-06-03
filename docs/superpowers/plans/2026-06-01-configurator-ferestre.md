@@ -76,7 +76,7 @@ git commit -m "chore: add framer-motion"
 - [ ] **Step 1: Creează fișierul**
 
 ```typescript
-// lib/configurator/types.ts
+// lib/configurator-ferestre/types.ts
 
 export type GlassCount = 1 | 2;
 export type OpenDirection = 'left' | 'right';
@@ -204,7 +204,7 @@ Expected: no errors (fișierul e pur de tipuri, fără referințe la alte module
 - [ ] **Step 3: Commit**
 
 ```bash
-git add lib/configurator/types.ts
+git add lib/configurator-ferestre/types.ts
 git commit -m "feat: add configurator TypeScript types"
 ```
 
@@ -219,7 +219,7 @@ git commit -m "feat: add configurator TypeScript types"
 - [ ] **Step 1: Creează steps.ts**
 
 ```typescript
-// lib/configurator/steps.ts
+// lib/configurator-ferestre/steps.ts
 import type { ConfiguratorState, StepId, StepNode } from './types';
 
 export const STEPS: Record<StepId, StepNode> = {
@@ -274,7 +274,7 @@ export const STEPS: Record<StepId, StepNode> = {
 - [ ] **Step 2: Creează transitions.ts**
 
 ```typescript
-// lib/configurator/transitions.ts
+// lib/configurator-ferestre/transitions.ts
 import { STEPS } from './steps';
 import type { ConfiguratorState, StepId } from './types';
 
@@ -335,7 +335,7 @@ Expected: no errors
 - [ ] **Step 4: Commit**
 
 ```bash
-git add lib/configurator/steps.ts lib/configurator/transitions.ts
+git add lib/configurator-ferestre/steps.ts lib/configurator-ferestre/transitions.ts
 git commit -m "feat: add step graph and transition logic"
 ```
 
@@ -350,7 +350,7 @@ git commit -m "feat: add step graph and transition logic"
 - [ ] **Step 1: Creează pricing.ts**
 
 ```typescript
-// lib/configurator/pricing.ts
+// lib/configurator-ferestre/pricing.ts
 import type { PricingInput, PricingResult } from './types';
 
 export function calculatePrice(input: PricingInput): PricingResult {
@@ -377,7 +377,7 @@ export function calculatePrice(input: PricingInput): PricingResult {
 Deschide un fișier temporar și rulează:
 ```typescript
 // verificare manuală — șterge după
-import { calculatePrice } from '@/lib/configurator/pricing';
+import { calculatePrice } from '@/lib/configurator-ferestre/pricing';
 console.log(calculatePrice({ pricePerSquareMeter: 1300, dimensions: { width: 100, height: 100 }, opens: false, isOscilo: false, quantity: 1 }));
 // Expected: { area: 1, basePrice: 1300, unitPrice: 1300, finalPrice: 1300 }
 console.log(calculatePrice({ pricePerSquareMeter: 1300, dimensions: { width: 100, height: 100 }, opens: true, isOscilo: false, quantity: 1 }));
@@ -391,7 +391,7 @@ Notă: nu e nevoie să scrii un fișier de test separat. Verificarea se face viz
 - [ ] **Step 3: Creează mock-product.ts**
 
 ```typescript
-// lib/configurator/mock-product.ts
+// lib/configurator-ferestre/mock-product.ts
 import type { ProductConfig } from './types';
 
 export const MOCK_PRODUCT: ProductConfig = {
@@ -423,7 +423,7 @@ pnpm exec tsc --noEmit
 - [ ] **Step 5: Commit**
 
 ```bash
-git add lib/configurator/pricing.ts lib/configurator/mock-product.ts
+git add lib/configurator-ferestre/pricing.ts lib/configurator-ferestre/mock-product.ts
 git commit -m "feat: add pricing engine and mock product data"
 ```
 
@@ -437,7 +437,7 @@ git commit -m "feat: add pricing engine and mock product data"
 - [ ] **Step 1: Creează ConfiguratorShell.tsx cu reducer și state inițial**
 
 ```tsx
-// components/configurator/ConfiguratorShell.tsx
+// components/configurator-ferestre/ConfiguratorShell.tsx
 'use client';
 
 import { useReducer, useMemo } from 'react';
@@ -450,13 +450,13 @@ import type {
   ActivePane,
   HandleSide,
   Dimensions,
-} from '@/lib/configurator/types';
+} from '@/lib/configurator-ferestre/types';
 import {
   getNextStep,
   getPreviousStep,
   getResetStateForJump,
-} from '@/lib/configurator/transitions';
-import { calculatePrice } from '@/lib/configurator/pricing';
+} from '@/lib/configurator-ferestre/transitions';
+import { calculatePrice } from '@/lib/configurator-ferestre/pricing';
 
 function buildInitialState(product: ProductConfig): ConfiguratorState {
   return {
@@ -598,9 +598,9 @@ export function ConfiguratorShell({ product }: Props) {
 - [ ] **Step 2: Creează app/configurator/page.tsx**
 
 ```tsx
-// app/configurator/page.tsx
-import { MOCK_PRODUCT } from '@/lib/configurator/mock-product';
-import { ConfiguratorShell } from '@/components/configurator/ConfiguratorShell';
+// app/configurator-ferestre/page.tsx
+import { MOCK_PRODUCT } from '@/lib/configurator-ferestre/mock-product';
+import { ConfiguratorShell } from '@/components/configurator-ferestre/ConfiguratorShell';
 
 export default function ConfiguratorPage() {
   return <ConfiguratorShell product={MOCK_PRODUCT} />;
@@ -624,7 +624,7 @@ pnpm exec tsc --noEmit
 - [ ] **Step 5: Commit**
 
 ```bash
-git add components/configurator/ConfiguratorShell.tsx app/configurator/page.tsx
+git add components/configurator-ferestre/ConfiguratorShell.tsx app/configurator-ferestre/page.tsx
 git commit -m "feat: add ConfiguratorShell with useReducer and step machine"
 ```
 
@@ -638,7 +638,7 @@ git commit -m "feat: add ConfiguratorShell with useReducer and step machine"
 - [ ] **Step 1: Creează BinaryChoice.tsx**
 
 ```tsx
-// components/configurator/BinaryChoice.tsx
+// components/configurator-ferestre/BinaryChoice.tsx
 'use client';
 
 interface Option<T> {
@@ -696,7 +696,7 @@ export function BinaryChoice<T>({
 - [ ] **Step 2: Commit**
 
 ```bash
-git add components/configurator/BinaryChoice.tsx
+git add components/configurator-ferestre/BinaryChoice.tsx
 git commit -m "feat: add BinaryChoice shared component"
 ```
 
@@ -712,11 +712,11 @@ git commit -m "feat: add BinaryChoice shared component"
 - [ ] **Step 1: Creează StepGlassCount.tsx**
 
 ```tsx
-// components/configurator/steps/StepGlassCount.tsx
+// components/configurator-ferestre/steps/StepGlassCount.tsx
 'use client';
 
 import { BinaryChoice } from '../BinaryChoice';
-import type { ConfiguratorAction, GlassCount } from '@/lib/configurator/types';
+import type { ConfiguratorAction, GlassCount } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   dispatch: React.Dispatch<ConfiguratorAction>;
@@ -739,11 +739,11 @@ export function StepGlassCount({ dispatch }: Props) {
 - [ ] **Step 2: Creează StepOpens.tsx**
 
 ```tsx
-// components/configurator/steps/StepOpens.tsx
+// components/configurator-ferestre/steps/StepOpens.tsx
 'use client';
 
 import { BinaryChoice } from '../BinaryChoice';
-import type { ConfiguratorAction } from '@/lib/configurator/types';
+import type { ConfiguratorAction } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   dispatch: React.Dispatch<ConfiguratorAction>;
@@ -766,11 +766,11 @@ export function StepOpens({ dispatch }: Props) {
 - [ ] **Step 3: Creează StepOscilo.tsx**
 
 ```tsx
-// components/configurator/steps/StepOscilo.tsx
+// components/configurator-ferestre/steps/StepOscilo.tsx
 'use client';
 
 import { BinaryChoice } from '../BinaryChoice';
-import type { ConfiguratorAction } from '@/lib/configurator/types';
+import type { ConfiguratorAction } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   dispatch: React.Dispatch<ConfiguratorAction>;
@@ -801,7 +801,7 @@ export function StepOscilo({ dispatch }: Props) {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add components/configurator/steps/StepGlassCount.tsx components/configurator/steps/StepOpens.tsx components/configurator/steps/StepOscilo.tsx
+git add components/configurator-ferestre/steps/StepGlassCount.tsx components/configurator-ferestre/steps/StepOpens.tsx components/configurator-ferestre/steps/StepOscilo.tsx
 git commit -m "feat: add StepGlassCount, StepOpens, StepOscilo"
 ```
 
@@ -816,11 +816,11 @@ git commit -m "feat: add StepGlassCount, StepOpens, StepOscilo"
 - [ ] **Step 1: Creează StepDirection.tsx**
 
 ```tsx
-// components/configurator/steps/StepDirection.tsx
+// components/configurator-ferestre/steps/StepDirection.tsx
 'use client';
 
 import { BinaryChoice } from '../BinaryChoice';
-import type { ConfiguratorAction, OpenDirection } from '@/lib/configurator/types';
+import type { ConfiguratorAction, OpenDirection } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   dispatch: React.Dispatch<ConfiguratorAction>;
@@ -851,11 +851,11 @@ export function StepDirection({ dispatch }: Props) {
 - [ ] **Step 2: Creează StepHandleSide.tsx**
 
 ```tsx
-// components/configurator/steps/StepHandleSide.tsx
+// components/configurator-ferestre/steps/StepHandleSide.tsx
 'use client';
 
 import { BinaryChoice } from '../BinaryChoice';
-import type { ConfiguratorAction, HandleSide } from '@/lib/configurator/types';
+import type { ConfiguratorAction, HandleSide } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   dispatch: React.Dispatch<ConfiguratorAction>;
@@ -886,7 +886,7 @@ export function StepHandleSide({ dispatch }: Props) {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add components/configurator/steps/StepDirection.tsx components/configurator/steps/StepHandleSide.tsx
+git add components/configurator-ferestre/steps/StepDirection.tsx components/configurator-ferestre/steps/StepHandleSide.tsx
 git commit -m "feat: add StepDirection and StepHandleSide"
 ```
 
@@ -900,10 +900,10 @@ git commit -m "feat: add StepDirection and StepHandleSide"
 - [ ] **Step 1: Creează StepActivePane.tsx**
 
 ```tsx
-// components/configurator/steps/StepActivePane.tsx
+// components/configurator-ferestre/steps/StepActivePane.tsx
 'use client';
 
-import type { ConfiguratorAction, ActivePane } from '@/lib/configurator/types';
+import type { ConfiguratorAction, ActivePane } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   dispatch: React.Dispatch<ConfiguratorAction>;
@@ -964,7 +964,7 @@ export function StepActivePane({ dispatch }: Props) {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add components/configurator/steps/StepActivePane.tsx
+git add components/configurator-ferestre/steps/StepActivePane.tsx
 git commit -m "feat: add StepActivePane with 3 options"
 ```
 
@@ -978,14 +978,14 @@ git commit -m "feat: add StepActivePane with 3 options"
 - [ ] **Step 1: Creează StepDimensions.tsx**
 
 ```tsx
-// components/configurator/steps/StepDimensions.tsx
+// components/configurator-ferestre/steps/StepDimensions.tsx
 'use client';
 
 import type {
   ConfiguratorState,
   ConfiguratorAction,
   GlassCount,
-} from '@/lib/configurator/types';
+} from '@/lib/configurator-ferestre/types';
 
 const LIMITS = {
   1: { minW: 50, maxW: 150, minH: 40, maxH: 210 },
@@ -1098,7 +1098,7 @@ export function StepDimensions({ state, dispatch, onConfirm }: Props) {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add components/configurator/steps/StepDimensions.tsx
+git add components/configurator-ferestre/steps/StepDimensions.tsx
 git commit -m "feat: add StepDimensions with validation"
 ```
 
@@ -1112,7 +1112,7 @@ git commit -m "feat: add StepDimensions with validation"
 - [ ] **Step 1: Creează WindowPreview.tsx**
 
 ```tsx
-// components/configurator/WindowPreview.tsx
+// components/configurator-ferestre/WindowPreview.tsx
 'use client';
 
 import type {
@@ -1122,7 +1122,7 @@ import type {
   ActivePane,
   HandleSide,
   OptionItem,
-} from '@/lib/configurator/types';
+} from '@/lib/configurator-ferestre/types';
 
 const SVG_SIZE = 400;
 const PADDING = 32;
@@ -1405,7 +1405,7 @@ export function WindowPreview({
 - [ ] **Step 2: Commit**
 
 ```bash
-git add components/configurator/WindowPreview.tsx
+git add components/configurator-ferestre/WindowPreview.tsx
 git commit -m "feat: add WindowPreview SVG component"
 ```
 
@@ -1459,7 +1459,7 @@ pnpm exec tsc --noEmit
 - [ ] **Step 3: Commit**
 
 ```bash
-git add components/configurator/steps/StepDimensions.tsx
+git add components/configurator-ferestre/steps/StepDimensions.tsx
 git commit -m "feat: integrate WindowPreview into StepDimensions"
 ```
 
@@ -1474,10 +1474,10 @@ git commit -m "feat: integrate WindowPreview into StepDimensions"
 - [ ] **Step 1: Creează PriceSummary.tsx**
 
 ```tsx
-// components/configurator/PriceSummary.tsx
+// components/configurator-ferestre/PriceSummary.tsx
 'use client';
 
-import type { PricingResult } from '@/lib/configurator/types';
+import type { PricingResult } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   pricing: PricingResult | null;
@@ -1519,14 +1519,14 @@ export function PriceSummary({ pricing, quantity }: Props) {
 - [ ] **Step 2: Creează StepConfiguration.tsx**
 
 ```tsx
-// components/configurator/steps/StepConfiguration.tsx
+// components/configurator-ferestre/steps/StepConfiguration.tsx
 'use client';
 
 import type {
   ConfiguratorState,
   ConfiguratorAction,
   PricingResult,
-} from '@/lib/configurator/types';
+} from '@/lib/configurator-ferestre/types';
 import { PriceSummary } from '../PriceSummary';
 
 interface Props {
@@ -1650,7 +1650,7 @@ export function StepConfiguration({ state, dispatch, pricing, onConfirm }: Props
 - [ ] **Step 3: Commit**
 
 ```bash
-git add components/configurator/PriceSummary.tsx components/configurator/steps/StepConfiguration.tsx
+git add components/configurator-ferestre/PriceSummary.tsx components/configurator-ferestre/steps/StepConfiguration.tsx
 git commit -m "feat: add StepConfiguration and PriceSummary"
 ```
 
@@ -1664,7 +1664,7 @@ git commit -m "feat: add StepConfiguration and PriceSummary"
 - [ ] **Step 1: Creează StepSummary.tsx**
 
 ```tsx
-// components/configurator/steps/StepSummary.tsx
+// components/configurator-ferestre/steps/StepSummary.tsx
 'use client';
 
 import type {
@@ -1672,7 +1672,7 @@ import type {
   ConfiguratorOutput,
   PricingResult,
   OptionItem,
-} from '@/lib/configurator/types';
+} from '@/lib/configurator-ferestre/types';
 import { PriceSummary } from '../PriceSummary';
 
 interface Props {
@@ -1799,7 +1799,7 @@ export function StepSummary({ state, pricing, onSubmit }: Props) {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add components/configurator/steps/StepSummary.tsx
+git add components/configurator-ferestre/steps/StepSummary.tsx
 git commit -m "feat: add StepSummary with output JSON"
 ```
 
@@ -1813,11 +1813,11 @@ git commit -m "feat: add StepSummary with output JSON"
 - [ ] **Step 1: Creează StepHistory.tsx**
 
 ```tsx
-// components/configurator/StepHistory.tsx
+// components/configurator-ferestre/StepHistory.tsx
 'use client';
 
-import { STEPS } from '@/lib/configurator/steps';
-import type { ConfiguratorAction, StepId } from '@/lib/configurator/types';
+import { STEPS } from '@/lib/configurator-ferestre/steps';
+import type { ConfiguratorAction, StepId } from '@/lib/configurator-ferestre/types';
 
 interface Props {
   completedSteps: StepId[];
@@ -1878,7 +1878,7 @@ export function StepHistory({ completedSteps, currentStepId, dispatch }: Props) 
 - [ ] **Step 2: Commit**
 
 ```bash
-git add components/configurator/StepHistory.tsx
+git add components/configurator-ferestre/StepHistory.tsx
 git commit -m "feat: add StepHistory navigation bar"
 ```
 
@@ -1892,7 +1892,7 @@ git commit -m "feat: add StepHistory navigation bar"
 - [ ] **Step 1: Înlocuiește conținutul ConfiguratorShell.tsx cu versiunea completă**
 
 ```tsx
-// components/configurator/ConfiguratorShell.tsx
+// components/configurator-ferestre/ConfiguratorShell.tsx
 'use client';
 
 import { useReducer, useMemo, useCallback } from 'react';
@@ -1904,13 +1904,13 @@ import type {
   HandleSide,
   ConfiguratorOutput,
   PricingResult,
-} from '@/lib/configurator/types';
+} from '@/lib/configurator-ferestre/types';
 import {
   getNextStep,
   getPreviousStep,
   getResetStateForJump,
-} from '@/lib/configurator/transitions';
-import { calculatePrice } from '@/lib/configurator/pricing';
+} from '@/lib/configurator-ferestre/transitions';
+import { calculatePrice } from '@/lib/configurator-ferestre/pricing';
 import { StepHistory } from './StepHistory';
 import { StepGlassCount } from './steps/StepGlassCount';
 import { StepOpens } from './steps/StepOpens';
@@ -2195,7 +2195,7 @@ Verifică în browser `http://localhost:3000/configurator`:
 - [ ] **Step 7: Commit**
 
 ```bash
-git add components/configurator/ConfiguratorShell.tsx lib/configurator/types.ts
+git add components/configurator-ferestre/ConfiguratorShell.tsx lib/configurator-ferestre/types.ts
 git commit -m "feat: wire all steps in ConfiguratorShell with Framer Motion transitions"
 ```
 

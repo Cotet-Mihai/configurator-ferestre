@@ -1,4 +1,4 @@
-// lib/configurator/pricing.ts
+// lib/configurator-ferestre/pricing.ts
 import type { PricingInput, PricingResult } from './types';
 
 export function calculatePrice(input: PricingInput): PricingResult {

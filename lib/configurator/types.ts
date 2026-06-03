@@ -1,4 +1,4 @@
-// lib/configurator/types.ts
+// lib/configurator-ferestre/types.ts
 
 export type GlassCount = 1 | 2;
 export type OpenDirection = 'left' | 'right';
