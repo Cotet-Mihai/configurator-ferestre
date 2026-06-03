@@ -98,18 +98,18 @@ export function WindowPreview({
       const apexY = py;
       return (
         <g>
-          <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} transition={t} />
-          <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} transition={t} />
-          <motion.line {...staticProps} animate={{ x1: apexX, y1: apexY, x2: paneX, y2: py + ph, stroke: frameColor }} transition={t} />
-          <motion.line {...staticProps} animate={{ x1: apexX, y1: apexY, x2: paneX + pw, y2: py + ph, stroke: frameColor }} transition={t} />
+          <motion.line {...staticProps} initial={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} transition={t} />
+          <motion.line {...staticProps} initial={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} transition={t} />
+          <motion.line {...staticProps} initial={{ x1: apexX, y1: apexY, x2: paneX, y2: py + ph, stroke: frameColor }} animate={{ x1: apexX, y1: apexY, x2: paneX, y2: py + ph, stroke: frameColor }} transition={t} />
+          <motion.line {...staticProps} initial={{ x1: apexX, y1: apexY, x2: paneX + pw, y2: py + ph, stroke: frameColor }} animate={{ x1: apexX, y1: apexY, x2: paneX + pw, y2: py + ph, stroke: frameColor }} transition={t} />
         </g>
       );
     }
 
     return (
       <g>
-        <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} transition={t} />
-        <motion.line {...staticProps} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} transition={t} />
+        <motion.line {...staticProps} initial={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py, stroke: frameColor }} transition={t} />
+        <motion.line {...staticProps} initial={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} animate={{ x1: handleX, y1: handleY, x2: hingeX, y2: py + ph, stroke: frameColor }} transition={t} />
       </g>
     );
   }

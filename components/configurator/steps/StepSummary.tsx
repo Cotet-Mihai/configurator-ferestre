@@ -140,7 +140,7 @@ export function StepSummary({ state, pricing, onSubmit }: Props) {
           <summary className="px-4 py-2 cursor-pointer text-zinc-500 hover:text-zinc-700">
             JSON output (dev)
           </summary>
-          <pre className="px-4 py-3 bg-zinc-50 overflow-auto">
+          <pre className="px-4 py-3 bg-zinc-900 text-emerald-400 overflow-auto">
             {JSON.stringify(output, null, 2)}
           </pre>
         </details>
