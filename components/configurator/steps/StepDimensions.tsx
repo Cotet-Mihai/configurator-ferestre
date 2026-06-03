@@ -27,10 +27,7 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
     height !== null && height >= limits.minH && height <= limits.maxH;
   const canConfirm = widthValid && heightValid;
 
-  const previewDimensions: Dimensions = {
-    width: widthValid ? width : null,
-    height: heightValid ? height : null,
-  };
+  const previewDimensions: Dimensions = { width, height };
 
   const [debouncedPreview, setDebouncedPreview] = useState<Dimensions>(previewDimensions);
   useEffect(() => {
@@ -119,20 +116,48 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
             Specificații produs
           </p>
 
-        {/* Informații fixe produs */}
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-zinc-700">Sticlă</span>
+        {/* Sticlă */}
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-medium text-zinc-700">Sticlă</span>
+          {state.product.glassOptions.length <= 1 ? (
             <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-500 cursor-default select-none">
-              Geam tripan
+              {state.product.glassOptions[0]?.label ?? '—'}
             </div>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-zinc-700">Feronerie</span>
+          ) : (
+            <select
+              value={state.selectedGlass ?? ''}
+              onChange={(e) => dispatch({ type: 'SET_GLASS', payload: e.target.value })}
+              className="rounded-lg border border-zinc-300 px-4 py-3 text-zinc-900 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+            >
+              {state.product.glassOptions.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label}{opt.priceModifier ? ` (+${opt.priceModifier} lei/m²)` : ''}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
+
+        {/* Feronerie */}
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-medium text-zinc-700">Feronerie</span>
+          {state.product.hardwareOptions.length <= 1 ? (
             <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-500 cursor-default select-none">
-              Feronerie standard (Roto AGB sa G-U)
+              {state.product.hardwareOptions[0]?.label ?? '—'}
             </div>
-          </div>
+          ) : (
+            <select
+              value={state.selectedHardware ?? ''}
+              onChange={(e) => dispatch({ type: 'SET_HARDWARE', payload: e.target.value })}
+              className="rounded-lg border border-zinc-300 px-4 py-3 text-zinc-900 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+            >
+              {state.product.hardwareOptions.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label}{opt.priceModifier ? ` (+${opt.priceModifier} lei/m²)` : ''}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
 
         {/* Culoare */}
@@ -192,7 +217,7 @@ export function StepDimensions({ state, dispatch, pricing, onConfirm }: Props) {
         <button
           onClick={onConfirm}
           disabled={!canConfirm}
-          className="mt-2 px-8 py-3 rounded-full bg-stone-800 text-white font-medium
+          className="mt-6 px-8 py-3 rounded-full bg-stone-800 text-white font-medium
             hover:bg-stone-700 disabled:opacity-40 disabled:cursor-not-allowed
             transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
         >

@@ -1,5 +1,7 @@
 'use client';
 
+let lastSelectTime = 0;
+
 interface Option<T> {
   value: T;
   label: string;
@@ -26,7 +28,12 @@ export function BinaryChoice<T>({
         {options.map((opt, i) => (
           <button
             key={String(opt.value)}
-            onClick={() => onSelect(opt.value)}
+            onClick={() => {
+              const now = Date.now();
+              if (now - lastSelectTime < 400) return;
+              lastSelectTime = now;
+              onSelect(opt.value);
+            }}
             className={`
               group flex-1 flex flex-col items-center justify-center gap-3
               min-h-[240px] md:min-h-[320px] px-8 py-10

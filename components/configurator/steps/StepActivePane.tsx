@@ -2,6 +2,8 @@
 
 import type { ConfiguratorAction, ActivePane } from '@/lib/configurator/types';
 
+let lastSelectTime = 0;
+
 interface Props {
   dispatch: React.Dispatch<ConfiguratorAction>;
 }
@@ -34,7 +36,12 @@ export function StepActivePane({ dispatch }: Props) {
         {OPTIONS.map((opt, i) => (
           <button
             key={opt.value}
-            onClick={() => dispatch({ type: 'SET_ACTIVE_PANE', payload: opt.value })}
+            onClick={() => {
+              const now = Date.now();
+              if (now - lastSelectTime < 400) return;
+              lastSelectTime = now;
+              dispatch({ type: 'SET_ACTIVE_PANE', payload: opt.value });
+            }}
             className={`
               group flex-1 flex flex-col items-center justify-center gap-3
               min-h-[240px] md:min-h-[320px] px-6 py-10
