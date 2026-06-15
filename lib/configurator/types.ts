@@ -83,6 +83,7 @@ export interface PricingInput {
   quantity: number;
   optionModifiers?: number; // sum of glass + color priceModifiers (per m²)
   hardwareFlatModifier?: number; // hardware fixed price added after area calculation
+  openingShare?: number; // fracțiunea aplicată suplimentului de deschidere (1 = întreg; 0.5 când la 2 geamuri se deschide doar unul)
 }
 
 export interface PricingResult {

@@ -10,7 +10,11 @@ export function calculatePrice(input: PricingInput): PricingResult {
 
   const multiplier = input.isOscilo ? 1.6 : input.opens ? 1.5 : 1.0;
 
-  const unitPrice = Math.round(basePrice * multiplier) + (input.hardwareFlatModifier ?? 0);
+  // Suplimentul de deschidere (peste prețul de bază). Dacă la 2 geamuri se
+  // deschide doar unul (openingShare = 0.5), suplimentul se înjumătățește.
+  const openingPremium = basePrice * (multiplier - 1) * (input.openingShare ?? 1);
+
+  const unitPrice = Math.round(basePrice + openingPremium) + (input.hardwareFlatModifier ?? 0);
   const finalPrice = unitPrice * input.quantity;
 
   return {

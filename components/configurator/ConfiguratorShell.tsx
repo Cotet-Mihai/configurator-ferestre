@@ -150,11 +150,20 @@ export function ConfiguratorShell({ product }: Props) {
       quantity: state.quantity,
       optionModifiers: glassModifier + colorModifier,
       hardwareFlatModifier: hardwareModifier,
+      // La 2 geamuri cu deschidere doar pe un geam (stânga/dreapta), suplimentul
+      // de deschidere se înjumătățește. La „ambele" sau 1 geam rămâne întreg.
+      openingShare:
+        state.glassCount === 2 &&
+        (state.activePane === 'left' || state.activePane === 'right')
+          ? 0.5
+          : 1,
     });
   }, [
     state.dimensions,
     state.opens,
     state.isOscilo,
+    state.glassCount,
+    state.activePane,
     state.quantity,
     state.product.pricePerSquareMeter,
     state.selectedGlass,
